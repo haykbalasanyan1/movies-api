@@ -49,6 +49,8 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN setcap "cap_net_bind_service=+ep" /usr/bin/php8.2
+export WWWUSER=${WWWUSER:-$UID}
+export WWWGROUP=${WWWGROUP:-$(id -g)}
 
 RUN groupadd --force -g $WWWGROUP sail
 RUN useradd -ms /bin/bash --no-user-group -g $WWWGROUP -u 1337 sail
